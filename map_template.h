@@ -7,7 +7,20 @@ template <class TypeA,class TypeB> class map_template{
 	TypeA *ID=new TypeA[1];
 	TypeB *Value=new TypeB[1];
 	unsigned int n=0;
-
+	
+	public map_template(const map_template<TypeA,TypeB> A){
+		this->n=A.n;
+		delete[] this->ID;
+		delete[] this->Value;
+		ID=new TypeA[n];
+		try{
+			Value=new TypeB[n];
+		}catch(...){
+			delete[] ID;
+		}
+		this->ID=A.ID;
+		this->Value=A.Value;
+	}
 	~map_template{
 		delete[] ID;
 		delete[] Value;
@@ -49,7 +62,7 @@ template <class TypeA,class TypeB> class map_template{
 		return a;
 	}
 
-	public void operator =(map_template A){
+	public void operator =(const map_template<TypeA,TypeB> A){
 		this->n=A.n;
 		delete[] this->ID;
 		delete[] this->Value;
@@ -59,10 +72,18 @@ template <class TypeA,class TypeB> class map_template{
 		}catch(...){
 			delete[] ID;
 		}
-		for(int i=0;i<n;i++){
+		this->ID=A.ID;
+		this->Value=A.Value;
+		/*for(int i=0;i<n;i++){
 			this->ID[i]=A.ID[i];
 			this->Value[i]=A.Value[i];
-		}
+		}*/
+	}
+	
+	public &ostream operator<<(ostream o,const map_template<TypeA,TypeB> A){
+		for(int i=0;i<A.n;i++)
+			o<<A.ID[i]<<"/t"<<A.Value[i]<<endl;
+		return o;
 	}
 
 };
