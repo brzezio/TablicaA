@@ -4,8 +4,8 @@ using namespace std;
 
 template <class TypeA,class TypeB> class map_template{
 	
-	TypeA *ID;
-	TypeB *Value;
+	TypeA *ID=new TypeA[1];
+	TypeB *Value=new TypeB[1];
 	unsigned int n=0;
 
 	~map_template{
@@ -16,14 +16,8 @@ template <class TypeA,class TypeB> class map_template{
 	public void Add(TypeA pierwszyArg, TypeB drugiArg){
 		if(n==0){
 			n++;
-			ID=new TypeA[n];
 			ID[n-1]=pierwszyArg;
-			try(){
-				Value=new TybeB[n];
-				Value[n-1]=drugiArg;
-			}catch(...){
-				delete[] ID;
-			}
+			Value[n-1]=drugiArg;
 		}else{
 			n++;
 			TypeA *A=new TypeA[n];
@@ -41,8 +35,33 @@ template <class TypeA,class TypeB> class map_template{
 			B[n-1}=drugiArg;
 			delete[] ID;
 			delete[] Value;
-			TypeA *ID=A;
-			TypeB *Value=B;
+			ID=A;
+			Value=B;
+		}
+	}
+	
+	public TypeB Find(TypeA id){
+		for(int i;i<n;i++)
+			if(ID[i]==id)
+				return Value[i];
+		cout<<"Nie znaleziono obiektu o takim ID"<<endl;
+		TypeB a;
+		return a;
+	}
+
+	public void operator =(map_template A){
+		this->n=A.n;
+		delete[] this->ID;
+		delete[] this->Value;
+		ID=new TypeA[n];
+		try{
+			Value=new TypeB[n];
+		}catch(...){
+			delete[] ID;
+		}
+		for(int i=0;i<n;i++){
+			this->ID[i]=A.ID[i];
+			this->Value[i]=A.Value[i];
 		}
 	}
 
