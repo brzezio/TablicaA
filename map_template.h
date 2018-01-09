@@ -22,7 +22,7 @@ template <class TypeA,class TypeB> class map_template{
 			this->ID=A.ID;
 			this->Value=A.Value;
 		}
-		~map_template{
+		~map_template(){
 			delete[] ID;
 			delete[] Value;
 		}
@@ -83,7 +83,8 @@ template <class TypeA,class TypeB> class map_template{
 			}*/
 		}
 		
-		&ostream operator<<(ostream o,const map_template<TypeA,TypeB> A){
+		ostream operator<<(const map_template<TypeA,TypeB> A){
+			ostream o;
 			for(int i=0;i<A.n;i++)
 				o<<A.ID[i]<<"/t"<<A.Value[i]<<endl;
 			return o;
