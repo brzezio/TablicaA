@@ -1,21 +1,25 @@
 #include <iostream>
+//#include "employee.h"
 
 using namespace std;
 
 template <class TypeA,class TypeB> class map_template{
-	
-	TypeA *ID;
-	TypeB *Value;
-	unsigned int n=0;
-	
 	public:
-		map_template<TypeA,TypeB>(const map_template<TypeA,TypeB>&A){
+		TypeA *ID;
+		TypeB *Value;
+		unsigned int n=0;
+	
+//	public:
+		class error{};
+		map_template(){}
+		map_template(const map_template<TypeA,TypeB>&A){
 			this->n=A.n;
 			ID=new TypeA[n];
 			try{
 				Value=new TypeB[n];
 			}catch(...){
 				delete[] ID;
+				throw error();
 			}
 			this->ID=A.ID;
 			this->Value=A.Value;
@@ -26,35 +30,49 @@ template <class TypeA,class TypeB> class map_template{
 		}
 
 		void Add(TypeA pierwszyArg, TypeB drugiArg){
-			n++;
-			//TODO:zabezpieczyć
-			TypeA *A=new TypeA[n];
-			TypeB *B=new TypeB[n];
-			/*try{
+			if(this->n==0){
+				n++;
+				ID=new TypeA[1];
+				try{
+					Value=new TypeB[1];
+				}catch(...){
+					delete[] ID;
+					throw error();
+				}
+				ID[0]=pierwszyArg;
+				Value[0]=drugiArg;
+			}else{
+				n++;
+				//TODO:zabezpieczyć
+				TypeA *A=new TypeA[n];
 				TypeB *B=new TypeB[n];
-			}catch(...){
-				delete[] A;
-			}*/
-			for(int i=0;i<n-2;i++){
-				A[i]=ID[i];
-				B[i]=Value[i];
+				/*try{
+					TypeB *B=new TypeB[n];
+				}catch(...){
+					delete[] A;
+					throw error();
+				}*/
+				for(unsigned int i=0;i<=n-2;i++){
+					A[i]=ID[i];
+					B[i]=Value[i];
+				}
+				A[n-1]=pierwszyArg;
+				B[n-1]=drugiArg;
+				delete[] ID;
+				delete[] Value;
+				ID=A;
+				Value=B;
 			}
-			A[n-1]=pierwszyArg;
-			B[n-1]=drugiArg;
-			delete[] ID;
-			delete[] Value;
-			ID=A;
-			Value=B;
-			
 		}
 		
-		TypeB Find(TypeA id){
-			for(int i;i<n;i++)
+		TypeB* Find(TypeA id){
+			for(unsigned int i;i<n;i++){
+				cout<<"Find i="<<i<<endl;
 				if(ID[i]==id)
-					return Value[i];
+					return &Value[i];
+			}
 			cout<<"Nie znaleziono obiektu o takim ID"<<endl;
-			TypeB a;
-			return a;
+			throw error();
 		}
 
 		void operator =(const map_template<TypeA,TypeB> A){
@@ -69,16 +87,16 @@ template <class TypeA,class TypeB> class map_template{
 			}
 			//this->ID=A.ID;
 			//this->Value=A.Value;
-			for(int i=0;i<n;i++){
+			for(unsigned int i=0;i<n;i++){
 				this->ID[i]=A.ID[i];
 				this->Value[i]=A.Value[i];
 			}
 		}
-		
-		ostream operator<<(const map_template<TypeA,TypeB> A){
-			ostream o;
-			for(int i=0;i<A.n;i++)
-				o<<A.ID[i]<<"/t"<<A.Value[i]<<endl;
+		friend ostream& operator<<(ostream& o,map_template<TypeA,TypeB> A){
+			for(unsigned int i=0;i<A.n;i++){
+				cout<<"ostream i="<<i<<endl;
+				o<<A.ID[i]<<"\t"<<A.Value[i]<<endl;
+			}
 			return o;
 		}
 

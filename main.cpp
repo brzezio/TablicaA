@@ -12,7 +12,10 @@ int main(void)
 	Database.Add(761028073,Employee("Jan Kowalski","salesman",28)); 	//Add first employee: name: Jan Kowalski, position: salseman, age: 28,
 	Database.Add(510212881,Employee("Adam Nowak","storekeeper",54)); 	//Add second employee: name: Adam Nowak, position: storekeeper, age: 54
 	Database.Add(730505129,Employee("Anna Zaradna","secretary",32)); 	//Add third employee: name: Anna Zaradna, position: secretary, age: 32
-
+	cout<<"1.Done: "<<Database.ID[0]<<"\t"<<Database.Value[0]<<endl;	
+	cout<<"2.Done: "<<Database.ID[1]<<"\t"<<Database.Value[1]<<endl;	
+	cout<<"3.Done: "<<Database.ID[2]<<"\t"<<Database.Value[2]<<endl;
+	
 	cout << Database << endl;							//Print databese
 
 	map_template<ID,Employee> NewDatabase = Database;	//Make a copy of database
