@@ -4,15 +4,13 @@ using namespace std;
 
 template <class TypeA,class TypeB> class map_template{
 	
-	TypeA *ID=new TypeA[1];
-	TypeB *Value=new TypeB[1];
+	TypeA *ID;
+	TypeB *Value;
 	unsigned int n=0;
 	
 	public:
 		map_template<TypeA,TypeB>(const map_template<TypeA,TypeB>&A){
 			this->n=A.n;
-			delete[] this->ID;
-			delete[] this->Value;
 			ID=new TypeA[n];
 			try{
 				Value=new TypeB[n];
@@ -28,32 +26,26 @@ template <class TypeA,class TypeB> class map_template{
 		}
 
 		void Add(TypeA pierwszyArg, TypeB drugiArg){
-			if(n==0){
-				n++;
-				ID[n-1]=pierwszyArg;
-				Value[n-1]=drugiArg;
-			}else{
-				n++;
-				//TODO:zabezpieczyć
-				TypeA *A=new TypeA[n];
+			n++;
+			//TODO:zabezpieczyć
+			TypeA *A=new TypeA[n];
+			TypeB *B=new TypeB[n];
+			/*try{
 				TypeB *B=new TypeB[n];
-				/*try{
-					TypeB *B=new TypeB[n];
-				}catch(...){
-					delete[] A;
-				}*/
-
-				for(int i=0;i<n-2;i++){
-					A[i]=ID[i];
-					B[i]=Value[i];
-				}
-				A[n-1]=pierwszyArg;
-				B[n-1]=drugiArg;
-				delete[] ID;
-				delete[] Value;
-				ID=A;
-				Value=B;
+			}catch(...){
+				delete[] A;
+			}*/
+			for(int i=0;i<n-2;i++){
+				A[i]=ID[i];
+				B[i]=Value[i];
 			}
+			A[n-1]=pierwszyArg;
+			B[n-1]=drugiArg;
+			delete[] ID;
+			delete[] Value;
+			ID=A;
+			Value=B;
+			
 		}
 		
 		TypeB Find(TypeA id){
@@ -75,12 +67,12 @@ template <class TypeA,class TypeB> class map_template{
 			}catch(...){
 				delete[] ID;
 			}
-			this->ID=A.ID;
-			this->Value=A.Value;
-			/*for(int i=0;i<n;i++){
+			//this->ID=A.ID;
+			//this->Value=A.Value;
+			for(int i=0;i<n;i++){
 				this->ID[i]=A.ID[i];
 				this->Value[i]=A.Value[i];
-			}*/
+			}
 		}
 		
 		ostream operator<<(const map_template<TypeA,TypeB> A){
