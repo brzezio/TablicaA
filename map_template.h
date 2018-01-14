@@ -4,12 +4,11 @@
 using namespace std;
 
 template <class TypeA,class TypeB> class map_template{
-	public:
 		TypeA *ID;
 		TypeB *Value;
 		unsigned int n=0;
 	
-//	public:
+	public:
 		class error{};
 		map_template(){}
 		map_template(const map_template<TypeA,TypeB>&A){
@@ -21,8 +20,10 @@ template <class TypeA,class TypeB> class map_template{
 				delete[] ID;
 				throw error();
 			}
-			this->ID=A.ID;
-			this->Value=A.Value;
+			for(unsigned int i=0;i<this->n;i++){
+				this->ID[i]=A.ID[i];
+				this->Value[i]=A.Value[i];
+			}
 		}
 		~map_template(){
 			delete[] ID;
@@ -66,9 +67,9 @@ template <class TypeA,class TypeB> class map_template{
 		}
 		
 		TypeB* Find(TypeA id){
-			for(unsigned int i;i<n;i++){
-				cout<<"Find i="<<i<<endl;
-				if(ID[i]==id)
+			for(unsigned int i=0;i<n;i++){
+				//cout<<"Find i="<<i<<endl;
+				if(this->ID[i]==id)
 					return &Value[i];
 			}
 			cout<<"Nie znaleziono obiektu o takim ID"<<endl;
@@ -85,8 +86,6 @@ template <class TypeA,class TypeB> class map_template{
 			}catch(...){
 				delete[] ID;
 			}
-			//this->ID=A.ID;
-			//this->Value=A.Value;
 			for(unsigned int i=0;i<n;i++){
 				this->ID[i]=A.ID[i];
 				this->Value[i]=A.Value[i];
@@ -94,7 +93,7 @@ template <class TypeA,class TypeB> class map_template{
 		}
 		friend ostream& operator<<(ostream& o,map_template<TypeA,TypeB> A){
 			for(unsigned int i=0;i<A.n;i++){
-				cout<<"ostream i="<<i<<endl;
+				//cout<<"ostream i="<<i<<endl;
 				o<<A.ID[i]<<"\t"<<A.Value[i]<<endl;
 			}
 			return o;
