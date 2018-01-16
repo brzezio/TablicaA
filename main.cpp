@@ -2,6 +2,7 @@
 using namespace std;
 
 #include "employee.h"			//defines class Employee
+#include "biblioteka.h"
 #include "map_template.h"		//defines template map_template<Key,Value>
 
 int main(void)
@@ -31,4 +32,9 @@ int main(void)
 	Database = NewDatabase;								//Update original database
 	
 	cout << Database << endl;							//Print original databese
+
+	map_template<string,biblioteka> NewBiblioteka;
+	NewBiblioteka.Add("Wiedzmin",biblioteka("Andrzej Sapkowski","fantazy",250,"na polce")); 
+
+	cout<<NewBiblioteka<<endl;	
 }

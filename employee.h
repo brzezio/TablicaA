@@ -9,7 +9,7 @@ class Employee{
 		string Position;
 		unsigned int Age;
 		Employee(){}
-		Employee(string name,string position,int age):Name(name),Position(position),Age(age){};
+		Employee(string name,string position,int age):Name(name),Position(position),Age(age){}
 		
 		~Employee(){}
 
