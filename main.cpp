@@ -33,8 +33,22 @@ int main(void)
 	
 	cout << Database << endl;							//Print original databese
 
-	map_template<string,biblioteka> NewBiblioteka;
-	NewBiblioteka.Add("Wiedzmin",biblioteka("Andrzej Sapkowski","fantazy",250,"na polce")); 
+	cout<<"----------------------------------------------"<<endl;
 
-	cout<<NewBiblioteka<<endl;	
+	map_template<string,biblioteka> NewBiblioteka;
+
+	NewBiblioteka.Add("Wiedzmin",biblioteka("Andrzej Sapkowski","fantazy",250,"na polce")); 
+	NewBiblioteka.Add("Wiedzmin2",biblioteka("Sapkowski","fantazy",250,"na polce")); 
+	
+	cout<<NewBiblioteka<<endl;
+
+
+	biblioteka* A;
+	A = NewBiblioteka.Find("Wiedzmin");					
+	A->Stan = "wypozyczone";							
+	A = NewBiblioteka.Find("Wiedzmin2");					
+	A->Autor = "Andrzej Sapkowski";
+	
+	cout<<NewBiblioteka<<endl;
+	
 }
